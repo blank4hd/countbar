@@ -6,7 +6,11 @@ Inspired by [Countly](https://apps.apple.com/hk/app/countly-tally-count-on-menu/
 
 ## Screenshots
 
-_(Add screenshots of the menu bar icon, popover, and dashboard here)_
+![Menu bar icon with progress ring](assets/menubar.png)
+
+![Popover with counters](assets/popover.png)
+
+![Dashboard](assets/dashboard.png)
 
 ## Features
 
