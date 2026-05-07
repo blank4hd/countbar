@@ -4,61 +4,74 @@ A minimalist tally counter that lives in your macOS menu bar. Click to count, ri
 
 Inspired by [Countly](https://apps.apple.com/hk/app/countly-tally-count-on-menu/id6529533104) — built as a free, open-source alternative.
 
+## Screenshots
+
+_(Add screenshots of the menu bar icon, popover, and dashboard here)_
+
 ## Features
 
 - **One-click counting** — left-click the menu bar icon to increment the active counter
 - **Multiple counters** — track pushups, water, tasks, anything; switch which one shows in the menu bar
 - **Daily goals** — set a target per counter; the menu bar ring changes color as you progress (red → orange → yellow → blue → green)
-- **Auto-reset** — configure a daily reset time per counter, or set them to never reset
-- **Dashboard** — last 7/30/all-time totals, daily averages, current and longest streaks, goal hit rate, 30-day chart, 12-week activity heatmap
-- **Adapts to your theme** — dark/light mode, follows your accent color
+- **Per-counter reset schedules** — configure a daily reset time per counter, or set them to never reset (accumulate forever)
+- **Inline rename** — double-click any counter name to edit
+- **Analytics dashboard** — last 7/30/all-time totals, daily averages, current and longest streaks, goal hit rate, 30-day chart, 12-week activity heatmap
+- **Launch at login** — toggle from the popover; CountBar starts with your Mac
+- **Adapts to your theme** — follows light/dark mode and your system accent color
 - **Privacy-first** — all data stored locally; nothing leaves your machine
-
-## Screenshots
-
-_(Add screenshots of the menu bar icon, popover, and dashboard here)_
 
 ## Requirements
 
 - macOS 14.0 (Sonoma) or later
-- Xcode 15+ to build from source
 
-## Installation
+## Install
 
-### From source (only option for now)
+### Pre-built download
 
-1. Clone the repo:
+Grab the latest `.app` from the [Releases](../../releases) page, drag it to `/Applications`, and launch.
+
+> **First-launch note:** because CountBar isn't signed by an Apple Developer Program account, macOS Gatekeeper will block the first launch with a warning. To bypass it, **right-click `CountBar.app` in Finder → Open** (using the context menu, not double-click), then confirm in the dialog. After that, it launches normally.
+
+### Build from source
+
+```bash
+git clone https://github.com/YOUR_USERNAME/countbar.git
+cd countbar
+open CountBar.xcodeproj
 ```
-   git clone https://github.com/yourusername/countbar.git
-   cd countbar
-```
-2. Open `CountBar.xcodeproj` in Xcode
-3. Build and run (⌘R)
 
-### Pre-built releases
-
-Coming soon. Watch the [Releases](https://github.com/yourusername/countbar/releases) page.
+Then in Xcode press ⌘R to run. To install permanently: **Product → Archive → Distribute App → Custom → Copy App**, then drag `CountBar.app` to `/Applications`.
 
 ## Usage
 
-- **Left-click** the menu bar icon → increment the active counter
-- **Right-click** the menu bar icon → open the popover
-- In the popover: add counters, edit names (double-click), set goals, set reset schedules, switch active counter
-- **⌘D** in the popover → open the dashboard
+| Action                           | How                                           |
+| -------------------------------- | --------------------------------------------- |
+| Increment active counter         | Left-click the menu bar icon                  |
+| Open popover                     | Right-click the menu bar icon                 |
+| Add a counter                    | Type in the popover's text field, press Enter |
+| Rename a counter                 | Double-click its name                         |
+| Set goal / reset schedule        | Click the `…` menu on a counter row           |
+| Switch active (menu bar) counter | `…` menu → "Show in Menu Bar"                 |
+| Open the dashboard               | "Open Dashboard" in the popover, or ⌘D        |
+| Quit                             | "Quit CountBar" in the popover, or ⌘Q         |
+
+The menu bar ring fills as you approach your daily goal, and changes color through five stages: red (under 25%) → orange → yellow → blue → green (goal hit or exceeded).
+
+## Tech
+
+- **SwiftUI + AppKit** — `MenuBarExtra` doesn't allow distinct left/right click handling, so the status item is built on `NSStatusItem` instead. The popover content is pure SwiftUI hosted via `NSHostingController`.
+- **SwiftData** — persistence for counters and daily entries
+- **Swift Charts** — daily bar chart in the dashboard
+- **SF Symbols** — variable-color progress ring on the menu bar icon
 
 ## Roadmap
 
-- [ ] Notarized DMG releases
+- [ ] Notarized DMG releases (requires Apple Developer Program)
 - [ ] Homebrew Cask
 - [ ] Optional iCloud sync
 - [ ] Per-counter SF Symbol picker
 - [ ] Global hotkey for increment
-
-## Tech
-
-- SwiftUI + AppKit (`NSStatusItem` for menu bar, `MenuBarExtra` was too restrictive for the click-handling we wanted)
-- SwiftData for persistence
-- Swift Charts for the dashboard
+- [ ] Export data as CSV
 
 ## Contributing
 

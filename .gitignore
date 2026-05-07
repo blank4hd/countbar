@@ -34,3 +34,10 @@ Carthage/Build/
 
 # Local config
 *.local
+
+# Image Generator
+generate_icon.swift
+AppIcon.png
+
+# Misc
+*.log

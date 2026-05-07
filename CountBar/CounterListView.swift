@@ -55,20 +55,28 @@ struct CounterListView: View {
             .padding(8)
 
             Divider()
-            
-            Button("Open Dashboard") {
-                AppDelegate.shared?.showDashboard()
+
+            VStack(spacing: 0) {
+                LaunchAtLoginToggle()
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+
+                Divider()
+
+                Button("Open Dashboard") {
+                    AppDelegate.shared?.showDashboard()
+                }
+                .buttonStyle(.borderless)
+                .keyboardShortcut("d", modifiers: [.command])
+                .padding(.vertical, 4)
+
+                Button("Quit CountBar") {
+                    NSApp.terminate(nil)
+                }
+                .buttonStyle(.borderless)
+                .keyboardShortcut("q", modifiers: [.command])
+                .padding(.vertical, 4)
             }
-            .buttonStyle(.borderless)
-            .keyboardShortcut("d", modifiers: [.command])
-            
-            
-            Button("Quit CountBar") {
-                NSApp.terminate(nil)
-            }
-            .buttonStyle(.borderless)
-            .keyboardShortcut("q", modifiers: [.command])
-            .padding(.vertical, 6)
         }
         .frame(width: 280)
     }
@@ -297,5 +305,24 @@ struct EditableName: View {
 
     private func cancel() {
         isEditing = false
+    }
+}
+
+struct LaunchAtLoginToggle: View {
+    @State private var launchAtLogin = LaunchAtLogin.shared
+
+    var body: some View {
+        Toggle(isOn: Binding(
+            get: { launchAtLogin.isEnabled },
+            set: { launchAtLogin.setEnabled($0) }
+        )) {
+            Text("Launch at Login")
+                .font(.system(size: 13))
+        }
+        .toggleStyle(.checkbox)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .onAppear {
+            launchAtLogin.refresh()
+        }
     }
 }
