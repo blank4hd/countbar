@@ -34,7 +34,20 @@ Inspired by [Countly](https://apps.apple.com/hk/app/countly-tally-count-on-menu/
 
 Grab the latest `.app` from the [Releases](../../releases) page, drag it to `/Applications`, and launch.
 
-> **First-launch note:** because CountBar isn't signed by an Apple Developer Program account, macOS Gatekeeper will block the first launch with a warning. To bypass it, **right-click `CountBar.app` in Finder → Open** (using the context menu, not double-click), then confirm in the dialog. After that, it launches normally.
+> **First-launch note:** because CountBar isn't signed by an Apple Developer Program account, macOS Gatekeeper will block the first launch. To bypass it on macOS 15+:
+>
+> 1. Try to open `CountBar.app` (it'll be blocked with a "Not Opened" dialog) — click **Done**
+> 2. Open **System Settings → Privacy & Security** → scroll to the bottom
+> 3. Click **Open Anyway** next to the CountBar entry
+> 4. Confirm in the dialog that follows
+>
+> Or, in Terminal:
+>
+> ```
+> xattr -dr com.apple.quarantine /Applications/CountBar.app
+> ```
+>
+> This is a one-time step. After that, CountBar launches normally.
 
 ### Build from source
 
